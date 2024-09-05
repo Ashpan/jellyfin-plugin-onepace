@@ -44,7 +44,7 @@ public class WebRepository : IRepository
     {
         return await _memoryCache.GetOrCreateAsync(query, async cacheEntry =>
         {
-            var request = new HttpRequestMessage(HttpMethod.Post, "https://onepace.net/api/graphql");
+            var request = new HttpRequestMessage(HttpMethod.Post, "web.archive.org/web/20221114140027id_/https://onepace.net/api/graphql");
             request.Content = new StringContent(
                 JsonSerializer.Serialize(new
                 {
@@ -318,7 +318,7 @@ public class WebRepository : IRepository
         if (apiArc != null)
         {
             results.AddRange(apiArc.Value.GetProperty("images").EnumerateArray().Select(apiImage =>
-                new RepositoryArt("https://onepace.net/images/arcs/", apiImage)));
+                new RepositoryArt("web.archive.org/web/20221114140027id_/https://onepace.net/images/arcs/", apiImage)));
         }
 
         return results;
@@ -336,7 +336,7 @@ public class WebRepository : IRepository
         if (result != null)
         {
             results.AddRange(result.Value.ApiEpisode.GetProperty("images").EnumerateArray().Select(apiImage =>
-                new RepositoryArt("https://onepace.net/images/episodes/", apiImage)));
+                new RepositoryArt("web.archive.org/web/20221114140027id_/https://onepace.net/images/episodes/", apiImage)));
         }
 
         return results;

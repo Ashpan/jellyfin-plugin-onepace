@@ -22,7 +22,7 @@ public class SeriesExternalId : IExternalId
     public ExternalIdMediaType? Type => null;
 
     /// <inheritdoc/>
-    public string UrlFormatString => "https://onepace.net/";
+    public string UrlFormatString => "web.archive.org/web/20221114140027id_/https://onepace.net/";
 
     /// <inheritdoc/>
     public bool Supports(IHasProviderIds item) => item is Series;

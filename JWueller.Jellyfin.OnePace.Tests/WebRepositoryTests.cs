@@ -209,7 +209,7 @@ public class WebRepositoryTests
             {
                 if (request.RequestUri != null &&
                     request.Method == HttpMethod.Post &&
-                    request.RequestUri.AbsoluteUri == "https://onepace.net/api/graphql" &&
+                    request.RequestUri.AbsoluteUri == "web.archive.org/web/20221114140027id_/https://onepace.net/api/graphql" &&
                     request.Content != null)
                 {
                     var requestContent = request.Content.ReadAsStringAsync(cancellationToken).Result;
