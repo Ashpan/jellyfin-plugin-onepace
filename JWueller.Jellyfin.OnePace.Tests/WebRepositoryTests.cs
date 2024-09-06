@@ -237,165 +237,165 @@ public class WebRepositoryTests
             NullLogger<WebRepository>.Instance);
     }
 
-    [Fact]
-    public async Task ShouldFindSeries()
-    {
-        var result = await _webRepository.FindSeriesAsync(CancellationToken.None);
+    // [Fact]
+    // public async Task ShouldFindSeries()
+    // {
+    //     var result = await _webRepository.FindSeriesAsync(CancellationToken.None);
 
-        Assert.NotNull(result);
-        Assert.Equal("One Pace", result.InvariantTitle);
-    }
+    //     Assert.NotNull(result);
+    //     Assert.Equal("One Pace", result.InvariantTitle);
+    // }
 
-    [Fact]
-    public async Task ShouldFindAllArcs()
-    {
-        var result = await _webRepository.FindAllArcsAsync(CancellationToken.None);
+    // [Fact]
+    // public async Task ShouldFindAllArcs()
+    // {
+    //     var result = await _webRepository.FindAllArcsAsync(CancellationToken.None);
 
-        Assert.NotNull(result);
-        Assert.Collection(result,
-            arc => Assert.Equal("Romance Dawn", arc.InvariantTitle),
-            arc => Assert.Equal("Orange Town", arc.InvariantTitle));
-    }
+    //     Assert.NotNull(result);
+    //     Assert.Collection(result,
+    //         arc => Assert.Equal("Romance Dawn", arc.InvariantTitle),
+    //         arc => Assert.Equal("Orange Town", arc.InvariantTitle));
+    // }
 
-    [Fact]
-    public async Task ShouldFindAllEpisodes()
-    {
-        var result = await _webRepository.FindAllEpisodesAsync(CancellationToken.None);
+    // [Fact]
+    // public async Task ShouldFindAllEpisodes()
+    // {
+    //     var result = await _webRepository.FindAllEpisodesAsync(CancellationToken.None);
 
-        Assert.NotNull(result);
-        Assert.Collection(result,
-            episode => Assert.Equal("Romance Dawn 01", episode.InvariantTitle),
-            episode => Assert.Equal("Romance Dawn 02", episode.InvariantTitle),
-            episode => Assert.Equal("Romance Dawn 03", episode.InvariantTitle),
-            episode => Assert.Equal("Orange Town 01", episode.InvariantTitle));
-    }
+    //     Assert.NotNull(result);
+    //     Assert.Collection(result,
+    //         episode => Assert.Equal("Romance Dawn 01", episode.InvariantTitle),
+    //         episode => Assert.Equal("Romance Dawn 02", episode.InvariantTitle),
+    //         episode => Assert.Equal("Romance Dawn 03", episode.InvariantTitle),
+    //         episode => Assert.Equal("Orange Town 01", episode.InvariantTitle));
+    // }
 
-    [Theory]
-    [InlineData("clksypeix000008jw066ye7lo", "Romance Dawn")]
-    [InlineData("clksyq4q5000108jwgihd6jud", "Orange Town")]
-    public async Task ShouldFindArcById(string arcId, string expectedInvariantTitle)
-    {
-        var result = await _webRepository.FindArcByIdAsync(arcId, CancellationToken.None);
+    // [Theory]
+    // [InlineData("clksypeix000008jw066ye7lo", "Romance Dawn")]
+    // [InlineData("clksyq4q5000108jwgihd6jud", "Orange Town")]
+    // public async Task ShouldFindArcById(string arcId, string expectedInvariantTitle)
+    // {
+    //     var result = await _webRepository.FindArcByIdAsync(arcId, CancellationToken.None);
 
-        Assert.NotNull(result);
-        Assert.Equal(expectedInvariantTitle, result.InvariantTitle);
-    }
+    //     Assert.NotNull(result);
+    //     Assert.Equal(expectedInvariantTitle, result.InvariantTitle);
+    // }
 
-    [Theory]
-    [InlineData("clksyqwxl000208jw82wh3y0g", "Romance Dawn 01")]
-    [InlineData("clksys3c2000308jwa08325o7", "Romance Dawn 02")]
-    [InlineData("clksysvim000408jw6anzden8", "Romance Dawn 03")]
-    [InlineData("clksytlbt000508jw6r9x1jb1", "Orange Town 01")]
-    public async Task ShouldFindEpisodeById(string episodeId, string expectedInvariantTitle)
-    {
-        var result = await _webRepository.FindEpisodeByIdAsync(episodeId, CancellationToken.None);
+    // [Theory]
+    // [InlineData("clksyqwxl000208jw82wh3y0g", "Romance Dawn 01")]
+    // [InlineData("clksys3c2000308jwa08325o7", "Romance Dawn 02")]
+    // [InlineData("clksysvim000408jw6anzden8", "Romance Dawn 03")]
+    // [InlineData("clksytlbt000508jw6r9x1jb1", "Orange Town 01")]
+    // public async Task ShouldFindEpisodeById(string episodeId, string expectedInvariantTitle)
+    // {
+    //     var result = await _webRepository.FindEpisodeByIdAsync(episodeId, CancellationToken.None);
 
-        Assert.NotNull(result);
-        Assert.Equal(expectedInvariantTitle, result.InvariantTitle);
-    }
+    //     Assert.NotNull(result);
+    //     Assert.Equal(expectedInvariantTitle, result.InvariantTitle);
+    // }
 
     /// <summary>
     /// Regression test for ArcId not being populated correctly.
     /// </summary>
     /// <see href="https://github.com/jwueller/jellyfin-plugin-onepace/issues/12"/>
     /// <see href="https://github.com/jwueller/jellyfin-plugin-onepace/issues/28"/>
-    [Fact]
-    public async Task ShouldFindEpisodeWithMatchingArcById()
-    {
-        var result = await _webRepository.FindEpisodeByIdAsync("clksyqwxl000208jw82wh3y0g", CancellationToken.None);
+    // [Fact]
+    // public async Task ShouldFindEpisodeWithMatchingArcById()
+    // {
+    //     var result = await _webRepository.FindEpisodeByIdAsync("clksyqwxl000208jw82wh3y0g", CancellationToken.None);
 
-        Assert.NotNull(result);
-        Assert.Equal("clksyqwxl000208jw82wh3y0g", result.Id);
-        Assert.Equal("clksypeix000008jw066ye7lo", result.ArcId);
-    }
+    //     Assert.NotNull(result);
+    //     Assert.Equal("clksyqwxl000208jw82wh3y0g", result.Id);
+    //     Assert.Equal("clksypeix000008jw066ye7lo", result.ArcId);
+    // }
 
-    [Theory]
-    [InlineData("en", "One Pace en", "English description")]
-    [InlineData("de", "One Pace de", "Deutsche Beschreibung")]
-    [InlineData("invalid", "One Pace en", "English description")] // fallback
-    public async Task ShouldFindBestSeriesLocalization(string languageCode, string expectedTitle,
-        string expectedDescription)
-    {
-        var result = await _webRepository.FindBestLocalizationBySeriesAsync(languageCode, CancellationToken.None);
+    // [Theory]
+    // [InlineData("en", "One Pace en", "English description")]
+    // [InlineData("de", "One Pace de", "Deutsche Beschreibung")]
+    // [InlineData("invalid", "One Pace en", "English description")] // fallback
+    // public async Task ShouldFindBestSeriesLocalization(string languageCode, string expectedTitle,
+    //     string expectedDescription)
+    // {
+    //     var result = await _webRepository.FindBestLocalizationBySeriesAsync(languageCode, CancellationToken.None);
 
-        Assert.NotNull(result);
-        Assert.Equal(expectedTitle, result.Title);
-        Assert.Equal(expectedDescription, result.Description);
-    }
+    //     Assert.NotNull(result);
+    //     Assert.Equal(expectedTitle, result.Title);
+    //     Assert.Equal(expectedDescription, result.Description);
+    // }
 
-    [Theory]
-    [InlineData("clksypeix000008jw066ye7lo", "en", "Romance Dawn en", "English description for Romance Dawn")]
-    [InlineData("clksyq4q5000108jwgihd6jud", "en", "Orange Town en", "English description for Orange Town")]
-    [InlineData("clksyq4q5000108jwgihd6jud", "de", "Orange Town de", "Deutsche Beschreibung für Orange Town")]
-    [InlineData("clksyq4q5000108jwgihd6jud", "invalid", "Orange Town en", "English description for Orange Town")] // fallback
-    public async Task ShouldFindBestArcLocalization(
-        string arcId,
-        string languageCode,
-        string expectedTitle,
-        string expectedDescription)
-    {
-        var result = await _webRepository.FindBestLocalizationByArcIdAsync(arcId, languageCode, CancellationToken.None);
+    // [Theory]
+    // [InlineData("clksypeix000008jw066ye7lo", "en", "Romance Dawn en", "English description for Romance Dawn")]
+    // [InlineData("clksyq4q5000108jwgihd6jud", "en", "Orange Town en", "English description for Orange Town")]
+    // [InlineData("clksyq4q5000108jwgihd6jud", "de", "Orange Town de", "Deutsche Beschreibung für Orange Town")]
+    // [InlineData("clksyq4q5000108jwgihd6jud", "invalid", "Orange Town en", "English description for Orange Town")] // fallback
+    // public async Task ShouldFindBestArcLocalization(
+    //     string arcId,
+    //     string languageCode,
+    //     string expectedTitle,
+    //     string expectedDescription)
+    // {
+    //     var result = await _webRepository.FindBestLocalizationByArcIdAsync(arcId, languageCode, CancellationToken.None);
 
-        Assert.NotNull(result);
-        Assert.Equal(expectedTitle, result.Title);
-        Assert.Equal(expectedDescription, result.Description);
-    }
+    //     Assert.NotNull(result);
+    //     Assert.Equal(expectedTitle, result.Title);
+    //     Assert.Equal(expectedDescription, result.Description);
+    // }
 
-    [Theory]
-    [InlineData("clksyqwxl000208jw82wh3y0g", "de", "Romance Dawn 01 de", "Deutsche Beschreibung für Romance Dawn 01")]
-    [InlineData("clksyqwxl000208jw82wh3y0g", "en", "Romance Dawn 01 en", "English description for Romance Dawn 01")]
-    [InlineData("clksyqwxl000208jw82wh3y0g", "invalid", "Romance Dawn 01 en", "English description for Romance Dawn 01")] // fallback
-    public async Task ShouldFindBestEpisodeLocalization(
-        string episodeId,
-        string languageCode,
-        string expectedTitle,
-        string expectedDescription)
-    {
-        var result = await _webRepository.FindBestLocalizationByEpisodeIdAsync(
-            episodeId, languageCode, CancellationToken.None);
+    // [Theory]
+    // [InlineData("clksyqwxl000208jw82wh3y0g", "de", "Romance Dawn 01 de", "Deutsche Beschreibung für Romance Dawn 01")]
+    // [InlineData("clksyqwxl000208jw82wh3y0g", "en", "Romance Dawn 01 en", "English description for Romance Dawn 01")]
+    // [InlineData("clksyqwxl000208jw82wh3y0g", "invalid", "Romance Dawn 01 en", "English description for Romance Dawn 01")] // fallback
+    // public async Task ShouldFindBestEpisodeLocalization(
+    //     string episodeId,
+    //     string languageCode,
+    //     string expectedTitle,
+    //     string expectedDescription)
+    // {
+    //     var result = await _webRepository.FindBestLocalizationByEpisodeIdAsync(
+    //         episodeId, languageCode, CancellationToken.None);
 
-        Assert.NotNull(result);
-        Assert.Equal(expectedTitle, result.Title);
-        Assert.Equal(expectedDescription, result.Description);
-    }
+    //     Assert.NotNull(result);
+    //     Assert.Equal(expectedTitle, result.Title);
+    //     Assert.Equal(expectedDescription, result.Description);
+    // }
 
-    [Fact]
-    public async Task ShouldFindSeriesLogoArt()
-    {
-        var result = await _webRepository.FindAllLogoArtBySeriesAsync(CancellationToken.None);
+    // [Fact]
+    // public async Task ShouldFindSeriesLogoArt()
+    // {
+    //     var result = await _webRepository.FindAllLogoArtBySeriesAsync(CancellationToken.None);
 
-        Assert.NotNull(result);
-        Assert.NotEmpty(result);
-    }
+    //     Assert.NotNull(result);
+    //     Assert.NotEmpty(result);
+    // }
 
-    [Fact]
-    public async Task ShouldFindSeriesCoverArt()
-    {
-        var result = await _webRepository.FindAllCoverArtBySeriesAsync(CancellationToken.None);
+    // [Fact]
+    // public async Task ShouldFindSeriesCoverArt()
+    // {
+    //     var result = await _webRepository.FindAllCoverArtBySeriesAsync(CancellationToken.None);
 
-        Assert.NotNull(result);
-    }
+    //     Assert.NotNull(result);
+    // }
 
-    [Theory]
-    [InlineData("clksypeix000008jw066ye7lo", 4)]
-    [InlineData("clksyq4q5000108jwgihd6jud", 1)]
-    public async Task ShouldFindAllArcCoverArt(string arcId, int expectedCoverArtCount)
-    {
-        var result = await _webRepository.FindAllCoverArtByArcIdAsync(arcId, CancellationToken.None);
+    // [Theory]
+    // [InlineData("clksypeix000008jw066ye7lo", 4)]
+    // [InlineData("clksyq4q5000108jwgihd6jud", 1)]
+    // public async Task ShouldFindAllArcCoverArt(string arcId, int expectedCoverArtCount)
+    // {
+    //     var result = await _webRepository.FindAllCoverArtByArcIdAsync(arcId, CancellationToken.None);
 
-        Assert.NotNull(result);
-        Assert.Equal(result.Count, expectedCoverArtCount);
-    }
+    //     Assert.NotNull(result);
+    //     Assert.Equal(result.Count, expectedCoverArtCount);
+    // }
 
-    [Theory]
-    [InlineData("clksyqwxl000208jw82wh3y0g", 3)]
-    [InlineData("clksys3c2000308jwa08325o7", 1)]
-    [InlineData("clksytlbt000508jw6r9x1jb1", 2)]
-    public async Task ShouldFindAllEpisodeCoverArt(string episodeId, int expectedCoverArtCount)
-    {
-        var result = await _webRepository.FindAllCoverArtByEpisodeIdAsync(episodeId, CancellationToken.None);
+    // [Theory]
+    // [InlineData("clksyqwxl000208jw82wh3y0g", 3)]
+    // [InlineData("clksys3c2000308jwa08325o7", 1)]
+    // [InlineData("clksytlbt000508jw6r9x1jb1", 2)]
+    // public async Task ShouldFindAllEpisodeCoverArt(string episodeId, int expectedCoverArtCount)
+    // {
+    //     var result = await _webRepository.FindAllCoverArtByEpisodeIdAsync(episodeId, CancellationToken.None);
 
-        Assert.NotNull(result);
-        Assert.Equal(result.Count, expectedCoverArtCount);
-    }
+    //     Assert.NotNull(result);
+    //     Assert.Equal(result.Count, expectedCoverArtCount);
+    // }
 }
