@@ -1,0 +1,19 @@
+[
+  {
+    "guid": "d88f22ca-fc35-4fe1-8427-af67352f8c80",
+    "name": "One Pace - Ashpan",
+    "description": "One Pace - Ashpan",
+    "overview": "Metadata and cover art integration for the One Pace project",
+    "owner": "ashpan",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "changelog": "Initial release",
+        "targetAbi": "10.9.1.0",
+        "sourceUrl": "https://files.ashpanraskar.com/onepace_ashpan.zip",
+        "checksum": "f23cef4aafc4de40c8e320b8d4becda7",
+        "timestamp": "2024-09-06T23:55:44+00:00"
+      }
+    ]
+  }
+]
